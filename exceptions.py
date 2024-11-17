@@ -30,11 +30,30 @@ class InvalidArmorError(Exception):
         self.message = message
         super().__init__(self.message)
 
-def level_up(level): 
-    """7) Пример использования пользовательских исключений"""
-    if level < 1:
-        raise LowLevelError
 
-    if level > 100:
-        raise ValueError("Максимальный уровень 100!")
-    return level + 1
+
+def use_skill(character_level, skill_name, mana_cost, current_mana):
+    """7) Пример использования пользовательских исключений"""
+    try:
+        if character_level < 5 and skill_name == "fireball":
+            raise LowLevelError("Для использования огненного шара нужен уровень 5 и выше!")
+        if current_mana < mana_cost:
+            raise LowManaError()
+        if skill_name not in ["fireball", "heal", "shield"]:
+            raise InvalidSkillError()
+
+        print(f"Навык '{skill_name}' использован успешно.")
+        return True
+
+    except LowManaError as e:
+        print(f"Ошибка: {e}")
+        return False
+    except InvalidSkillError as e:
+        print(f"Ошибка: {e}")
+        return False
+    except LowLevelError as e:
+        print(f"Ошибка: {e}")
+        return False
+
+    finally:
+        print("Попытка использования навыка завершена.")
