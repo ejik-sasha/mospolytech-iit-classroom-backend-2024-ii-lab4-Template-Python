@@ -51,3 +51,9 @@ def calculate_dodge_chance(agility):
     """8.3) Дополнительные функции с исключениями"""
     if agility < 0:
         raise ValueError("Ловкость не может быть отрицательной.")
+    base_dodge_chance = 5
+    dodge_chance = base_dodge_chance + (agility // 10) # Увеличиваем на 1% за каждые 10 ловкости
+    max_dodge_chance = 95
+    dodge_chance = min(dodge_chance, max_dodge_chance)
+
+    return dodge_chance
